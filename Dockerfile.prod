@@ -1,6 +1,7 @@
 FROM php:7.3.6-fpm-alpine3.9
 RUN apk add --no-cache openssl bash mysql-client
-RUN docker-php-ext-install pdo pdo_mysql redis
+RUN docker-php-ext-install pdo pdo_mysql && pecl install redis \
+        && docker-php-ext-enable redis.so
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
 WORKDIR /var/www
